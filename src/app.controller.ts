@@ -1,4 +1,4 @@
-import { Controller, Get ,Param,Put,Delete,Post,Body} from '@nestjs/common';
+import { Controller, Get ,Param,Put,Delete,Post,Body,ParseIntPipe} from '@nestjs/common';
 import { AppService, budgets, optional_budget } from './app.service';
 
 @Controller('budget')
@@ -6,12 +6,12 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Get()
-  getHello(): budgets[]|string {
+  getAll(): budgets[]|string {
     return this.appService.getHello();
   }
 
   @Get(':id')
-  getByidcon(@Param('id') id:string):budgets[]|string{
+  getByidcon(@Param('id',ParseIntPipe) id:number):budgets[]|string{
     return this.appService.getByid(+id)
   }
 
@@ -21,13 +21,13 @@ export class AppController {
   }
 
   @Put(':id')
-  updateCon(@Param('id') id:string,@Body() createbudget:optional_budget):string{
-    return this.appService.update(createbudget,+id)
+  updateCon(@Param('id',ParseIntPipe) id:number,@Body() createbudget:optional_budget):string{
+    return this.appService.update(createbudget,id)
   }
 
   @Delete(':id')
-  deleteCon(@Param('id') id:string):string{
-    return this.appService.deletedata(+id)
+  deleteCon(@Param('id',ParseIntPipe) id:number):string{
+    return this.appService.deletedata(id)
   }
   
   

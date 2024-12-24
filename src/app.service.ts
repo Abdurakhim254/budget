@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 export interface budgets{
   id?:number,
   name:string,
-  price:string
+  price:number
 }
 
 export type optional_budget=Partial<budgets>
